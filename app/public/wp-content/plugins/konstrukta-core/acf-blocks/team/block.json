@@ -1,0 +1,12 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "konstrukta/team-acf",
+	"title": "Team (ACF)",
+	"category": "design",
+	"icon": "groups",
+	"description": "Vergleichsbeispiel: derselbe Bedarf, gebaut als ACF-Pro-Block mit Repeater.",
+	"keywords": [ "acf", "team", "personen" ],
+	"supports": { "html": false, "align": [ "wide" ], "mode": true, "jsx": false },
+	"acf": { "blockVersion": 3, "mode": "preview", "renderTemplate": "render.php", "validate": true }
+}

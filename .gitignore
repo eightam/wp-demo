@@ -1,0 +1,22 @@
+# Nur Demo-Code versionieren, nicht WordPress selbst
+/*
+!/.gitignore
+!/README.md
+!/model-block.md
+!/additional.txt
+!/bin/
+!/app/
+/app/*
+!/app/public/
+/app/public/*
+!/app/public/wp-content/
+/app/public/wp-content/*
+!/app/public/wp-content/plugins/
+!/app/public/wp-content/themes/
+/app/public/wp-content/plugins/*
+/app/public/wp-content/themes/*
+!/app/public/wp-content/plugins/konstrukta-core/
+!/app/public/wp-content/themes/konstrukta/
+node_modules/
+.DS_Store
+bin/.demo-credentials

@@ -1,0 +1,19 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "konstrukta/projekt-karten",
+	"title": "Projektkarten",
+	"category": "widgets",
+	"icon": "grid-view",
+	"description": "Referenzprojekte als Karten, gelesen aus den Projektdaten.",
+	"attributes": {
+		"anzahl": { "type": "integer", "default": 3 },
+		"nurHervorgehoben": { "type": "boolean", "default": false },
+		"branche": { "type": "string", "default": "" }
+	},
+	"usesContext": [ "postId" ],
+	"supports": { "html": false, "align": [ "wide", "full" ] },
+	"editorScript": "kx-schema-form",
+	"editorStyle": "kx-schema-form",
+	"render": "file:./render.php"
+}

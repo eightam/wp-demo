@@ -1,0 +1,41 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+<!-- wp:group {"tagName":"main","style":{"spacing":{"margin":{"top":"0"},"blockGap":"0"}},"layout":{"type":"default"}} -->
+<main class="wp-block-group" style="margin-top:0">
+	<!-- wp:konstrukta/projekt-ansicht {"teil":"kopf","align":"full"} /-->
+	<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60","left":"var:preset|spacing|50","right":"var:preset|spacing|50"},"blockGap":"var:preset|spacing|50"}},"layout":{"type":"constrained","contentSize":"1240px"}} -->
+	<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--60);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--60);padding-left:var(--wp--preset--spacing--50)">
+		<!-- wp:columns {"align":"wide","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|60"}}}} -->
+		<div class="wp-block-columns alignwide">
+			<!-- wp:column {"width":"62%"} -->
+			<div class="wp-block-column" style="flex-basis:62%">
+				<!-- wp:paragraph {"metadata":{"bindings":{"content":{"source":"core/post-meta","args":{"key":"kx_kurzbeschrieb"}}},"name":"Kurzbeschrieb (Binding)"},"style":{"typography":{"fontSize":"1.4rem","lineHeight":"1.5","fontWeight":"500"}}} -->
+				<p style="font-size:1.4rem;font-weight:500;line-height:1.5">Kurzbeschrieb</p>
+				<!-- /wp:paragraph -->
+				<!-- wp:konstrukta/projekt-ansicht {"teil":"fakten"} /-->
+			</div>
+			<!-- /wp:column -->
+			<!-- wp:column {"width":"38%"} -->
+			<div class="wp-block-column" style="flex-basis:38%">
+				<!-- wp:paragraph {"className":"kx-eyebrow"} -->
+				<p class="kx-eyebrow">Unsere Leistungen</p>
+				<!-- /wp:paragraph -->
+				<!-- wp:konstrukta/projekt-ansicht {"teil":"leistungen"} /-->
+			</div>
+			<!-- /wp:column -->
+		</div>
+		<!-- /wp:columns -->
+		<!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"backgroundColor":"accent-5","layout":{"type":"default"}} -->
+		<div class="wp-block-group alignwide has-accent-5-background-color has-background" style="padding-top:var(--wp--preset--spacing--50);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--50)">
+			<!-- wp:konstrukta/projekt-ansicht {"teil":"kennzahlen"} /-->
+		</div>
+		<!-- /wp:group -->
+		<!-- wp:konstrukta/projekt-ansicht {"teil":"galerie","align":"wide"} /-->
+		<!-- wp:heading {"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|60"}}}} -->
+		<h2 class="wp-block-heading alignwide" style="margin-top:var(--wp--preset--spacing--60)">Weitere Projekte</h2>
+		<!-- /wp:heading -->
+		<!-- wp:konstrukta/projekt-karten {"anzahl":3,"align":"wide"} /-->
+	</div>
+	<!-- /wp:group -->
+</main>
+<!-- /wp:group -->
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "konstrukta/projekt-ansicht",
+	"title": "Projekt-Ansicht",
+	"category": "theme",
+	"icon": "building",
+	"description": "Ein Teil der Projekt-Detailseite, gelesen aus den Projektdaten.",
+	"attributes": { "teil": { "type": "string", "enum": [ "kopf", "fakten", "kennzahlen", "leistungen", "galerie" ], "default": "kopf" } },
+	"usesContext": [ "postId", "postType" ],
+	"supports": { "html": false, "align": [ "wide", "full" ] },
+	"editorScript": "kx-schema-form",
+	"editorStyle": "kx-schema-form",
+	"render": "file:./render.php"
+}

@@ -1,0 +1,14 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "konstrukta/projekt-daten",
+	"title": "Projektdaten",
+	"category": "text",
+	"icon": "database",
+	"description": "Pflegemaske eines Referenzprojekts. Schreibt in die Meta-Felder, gibt auf der Website nichts aus.",
+	"supports": { "html": false, "multiple": false, "reusable": false, "inserter": false, "customClassName": false, "className": false, "lock": false },
+	"usesContext": [ "postId", "postType" ],
+	"editorScript": "kx-schema-form",
+	"editorStyle": "kx-schema-form",
+	"render": "file:./render.php"
+}

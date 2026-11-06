@@ -1,0 +1,36 @@
+/* Pflegemaske auf der Leinwand. Die Leinwand ist ein iframe mit Theme-Styles,
+   deshalb alles explizit setzen. */
+.kx-form-block { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; color: #1e1e1e; }
+.kx-form { background: #fff; border: 1px solid #dcdcde; border-radius: 4px; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
+.kx-form__title { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 14px 16px; border-bottom: 1px solid #dcdcde; background: #f6f7f7; }
+.kx-form__title strong { font-size: 14px; }
+.kx-form__title span { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: #757575; }
+.kx-form__notice { margin: 12px 16px !important; }
+.kx-form .components-panel__body { border-top: 1px solid #f0f0f0; }
+.kx-form .components-panel__body:first-of-type { border-top: 0; }
+.kx-form__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px; }
+.kx-form__field.is-wide { grid-column: 1 / -1; }
+.kx-form__field.is-missing .components-base-control__label,
+.kx-form__field.is-missing .components-base-control__help { color: #cc1818; }
+.kx-form__field.is-missing input, .kx-form__field.is-missing textarea { border-color: #cc1818 !important; }
+.kx-form p, .kx-form h2 { font-family: inherit; }
+
+.kx-rows__help { margin: 0 0 12px; color: #757575; font-size: 12px; }
+.kx-rows__head, .kx-rows__row { display: grid; gap: 8px; align-items: center; }
+.kx-rows__head { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: #757575; padding-bottom: 6px; border-bottom: 1px solid #f0f0f0; }
+.kx-rows__row { padding: 8px 0; border-bottom: 1px solid #f0f0f0; }
+.kx-rows__cell .components-base-control { margin: 0; }
+.kx-rows__actions { display: flex; justify-content: flex-end; }
+.kx-rows__empty { color: #757575; font-style: italic; margin: 4px 0 12px; }
+.kx-rows__add { margin-top: 12px; }
+
+.kx-media { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.kx-media__thumb { width: 48px; height: 36px; background: #f0f0f0; display: grid; place-items: center; overflow: hidden; border-radius: 2px; flex: none; }
+.kx-media__thumb img { width: 100%; height: 100%; object-fit: cover; }
+.kx-media__thumb svg { fill: #949494; }
+
+.kx-gradient { display: flex; align-items: center; gap: 8px; }
+.kx-gradient__swatch { width: 36px; height: 36px; border-radius: 2px; flex: none; box-shadow: inset 0 0 0 1px rgba(0,0,0,.1); }
+.kx-gradient .components-base-control { flex: 1; margin: 0; }
+
+.kx-preview-block { min-height: 40px; }

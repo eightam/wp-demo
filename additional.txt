@@ -1,0 +1,20 @@
+Can it be generalised? Yes. Most of the code already is.
+
+RowEditor, MediaCell and GradientCell know nothing about models. Only two lines are tied to models: they read the values from post meta and write them back with editPost. Two things are missing:
+
+One schema, defined in PHP. Each field and column is currently declared twice: in meta.php and in editor.js. Nothing checks that they match. Declare it once in PHP, use that to register the meta fields, and pass it to the editor through pintoEditorData. The JS then builds the form from it.
+A choice of where data is saved. The same form either writes post meta (editPost) or saves the values on the block itself (setAttributes, e.g. a type: array list). For blocks placed in page content: show the form on the canvas while the block is selected, and the server-rendered preview otherwise. You get ACF’s edit/preview switch without ACF.
+
+control() (used for the sidebar settings) and the configurator’s field() are near-duplicates. They would merge into one function.
+
+Estimate: about 1 day, with no build step. Plugin minor bump. The ongoing cost is that you maintain the ~6 field types yourself.
+
+Other ways, ranked
+Your own schema-driven form (above). Recommended. It fits how the repo is built (no build step, no ACF, meta as one field per list). You own the field types.
+ACF Pro blocks. Fastest route to required fields, min/max rows and conditional logic. But ACF saves each cell as its own key (specs_0_k), which the README explicitly rejected. It also adds the ACF licence as a dependency.
+Patterns locked to content-only editing (contentOnly), plus editable Block Bindings. This is the strongest guidance for text and image sections: editors can only fill fixed slots. It doesn’t work for table data.
+DataForm from @wordpress/dataviews. WordPress’s own schema-driven form, with validation and layouts. It needs a bundler, which breaks the no-build rule, and its API still changes. I haven’t checked whether core makes it available without bundling.
+Guidance you can add today, whichever option you choose
+Lock the pinto_model template (template_lock => 'all'). Editors can then no longer delete the block or add content that never appears. 10 min, plugin patch.
+Required fields: lockPostSaving until price and first view are set, with a note in the form. About 1 h, plugin minor.
+revisions_enabled on the model meta fields, so a revision also restores the data fields. Needs WP 6.4+, so first check Requires at least in pinto-core.php. 15 min.

@@ -1,0 +1,13 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "konstrukta/standorte",
+	"title": "Standorte",
+	"category": "design",
+	"icon": "location",
+	"description": "Standortliste mit Bild, Adresse und Telefon. Gespeichert als Blockattribute.",
+	"supports": { "html": false, "align": [ "wide" ] },
+	"editorScript": "kx-schema-form",
+	"editorStyle": "kx-schema-form",
+	"render": "file:./render.php"
+}

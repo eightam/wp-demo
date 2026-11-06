@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "konstrukta/kennzahlen",
+	"title": "Kennzahlen",
+	"category": "design",
+	"icon": "chart-bar",
+	"description": "Zahlenreihe. Pflege über die Maske auf der Leinwand, gespeichert als Blockattribute.",
+	"keywords": [ "zahlen", "fakten", "statistik" ],
+	"supports": { "html": false, "align": [ "wide", "full" ], "anchor": true },
+	"example": {},
+	"editorScript": "kx-schema-form",
+	"editorStyle": "kx-schema-form",
+	"render": "file:./render.php"
+}

@@ -1,0 +1,14 @@
+{
+  "name": "konstrukta-core",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Nur für den DataForm/DataViews-Teil. Alles andere läuft ohne Build.",
+  "scripts": {
+    "build": "wp-scripts build src/dataform.js src/projekte-admin.js --output-path=build && cp node_modules/@wordpress/dataviews/build-style/style.css build/dataviews.css",
+    "start": "wp-scripts start src/dataform.js src/projekte-admin.js --output-path=build"
+  },
+  "devDependencies": {
+    "@wordpress/dataviews": "^22.0.0",
+    "@wordpress/scripts": "^37.1.0"
+  }
+}
