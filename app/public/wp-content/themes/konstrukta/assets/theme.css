@@ -166,3 +166,19 @@ header .wp-block-navigation.is-vertical.is-vertical .has-child > .wp-block-navig
 	}
 	header .wp-block-navigation:not(.is-vertical) .has-child > .wp-block-navigation__submenu-container::before { display: none; }
 }
+
+/* Farbvarianten (Gruppe → Stile): Texte in festen Akzentfarben aus den
+   Patterns übernehmen die Textfarbe der Variante, damit sie lesbar bleiben. */
+[class*="is-style-section-"] .has-accent-4-color { color: inherit !important; opacity: .8; }
+.is-style-section-3 .has-accent-1-color, .is-style-section-4 .has-accent-1-color, .is-style-section-5 .has-accent-1-color,
+.is-style-section-3 .kx-eyebrow, .is-style-section-4 .kx-eyebrow, .is-style-section-5 .kx-eyebrow,
+.is-style-section-3 .has-accent-2-color, .is-style-section-4 .has-accent-2-color, .is-style-section-5 .has-accent-2-color { color: inherit !important; }
+.is-style-section-4 .kx-card, .is-style-section-5 .kx-card, .is-style-section-3 .kx-card { color: var(--wp--preset--color--contrast); }
+/* Gewählte Variante schlägt eine im Pattern fest gesetzte Hintergrundfarbe. */
+.is-style-section-1.has-background { background-color: var(--wp--preset--color--accent-5) !important; color: var(--wp--preset--color--contrast) !important; }
+.is-style-section-2.has-background { background-color: var(--wp--preset--color--accent-2) !important; color: var(--wp--preset--color--contrast) !important; }
+.is-style-section-3.has-background { background-color: var(--wp--preset--color--accent-1) !important; color: var(--wp--preset--color--base) !important; }
+.is-style-section-4.has-background { background-color: var(--wp--preset--color--contrast) !important; color: var(--wp--preset--color--base) !important; }
+.is-style-section-5.has-background { background-color: var(--wp--preset--color--accent-3) !important; color: var(--wp--preset--color--base) !important; }
+.is-style-section-1 .has-accent-2-color, .is-style-section-2 .has-accent-2-color,
+.is-style-section-1 .has-base-color, .is-style-section-2 .has-base-color { color: inherit !important; opacity: .8; }
