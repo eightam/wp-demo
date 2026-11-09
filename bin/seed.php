@@ -289,6 +289,13 @@ $team_block = kx_block( 'konstrukta/team-acf', array( 'name' => 'konstrukta/team
 
 $firma_bind = fn( $key, $tag = 'p', $style = '' ) => '<!-- wp:paragraph ' . $j( array( 'metadata' => array( 'bindings' => array( 'content' => array( 'source' => 'konstrukta/firma', 'args' => array( 'key' => $key ) ) ), 'name' => 'Firmendaten: ' . kx_firma_fields()[ $key ] ) ) ) . ' --><p>' . esc_html( kx_firma( $key ) ) . '</p><!-- /wp:paragraph -->';
 
+// Ansprechpersonen als echte Benutzer (Rolle Redakteur, ohne bekanntes Passwort).
+$people = array();
+foreach ( array( 'lea' => array( 'lea.gaemperli', 'Lea Gämperli' ), 'matteo' => array( 'matteo.rossi', 'Matteo Rossi' ) ) as $k => $u ) {
+	$existing = get_user_by( 'login', $u[0] );
+	$people[ $k ] = $existing ? $existing->ID : wp_insert_user( array( 'user_login' => $u[0], 'user_pass' => wp_generate_password( 24 ), 'user_email' => $u[0] . '@konstrukta.example', 'display_name' => $u[1], 'role' => 'editor' ) );
+}
+
 $pages = array(
 	'startseite' => array(
 		'title'   => 'Startseite',
@@ -311,7 +318,7 @@ $pages = array(
 			. kx_section( kx_heading( 'Geschäftsleitung', 'Team' ) . $team_block )
 			. kx_section( kx_heading( 'Unsere Standorte' ) . $standorte, 'accent-5' )
 			. kx_pattern( 'konstrukta/cta-band' ),
-		'meta'    => array( 'kx_claim' => 'Ingenieurskunst mit Bodenhaftung', 'kx_teaser' => 'Wir sind 240 Fachleute aus Maschinenbau, Elektrotechnik, Informatik und Design – und wir mögen schwierige Aufgaben.', 'kx_rubrik' => 'unternehmen', 'kx_kontakt_email' => 'kommunikation@konstrukta.example', 'kx_pruefen_bis' => '2027-03-31', 'kx_im_footer' => true ),
+		'meta'    => array( 'kx_claim' => 'Ingenieurskunst mit Bodenhaftung', 'kx_teaser' => 'Wir sind 240 Fachleute aus Maschinenbau, Elektrotechnik, Informatik und Design – und wir mögen schwierige Aufgaben.', 'kx_rubrik' => 'unternehmen', 'kx_ansprechperson' => $people['lea'], 'kx_pruefen_bis' => '2027-03-31', 'kx_im_footer' => true ),
 	),
 	'leistungen' => array(
 		'title'   => 'Leistungen',
@@ -321,7 +328,7 @@ $pages = array(
 			. kx_pattern( 'konstrukta/prozess' )
 			. kx_pattern( 'konstrukta/zitat' )
 			. $box_ref( array( 'Name' => array( 'content' => 'Matteo Rossi' ), 'Funktion' => array( 'content' => 'Leiter Simulation' ), 'Text' => array( 'content' => 'Fragen zu FEM, CFD oder Mehrkörpersimulation? Ich nehme mir gern eine Stunde Zeit.' ), 'Foto' => array( 'id' => $img['team-3'], 'url' => wp_get_attachment_image_url( $img['team-3'], 'thumbnail' ) ) ) ),
-		'meta'    => array( 'kx_claim' => 'Was wir für Sie tun', 'kx_teaser' => 'Engineering, Simulation und Industriedesign – einzeln oder als Gesamtpaket mit einer Ansprechperson.', 'kx_rubrik' => 'leistungen', 'kx_cta_url' => '/kontakt/', 'kx_kontakt_email' => 'matteo.rossi@konstrukta.example', 'kx_pruefen_bis' => gmdate( 'Y-m-d', strtotime( '+11 days' ) ), 'kx_im_footer' => true ),
+		'meta'    => array( 'kx_claim' => 'Was wir für Sie tun', 'kx_teaser' => 'Engineering, Simulation und Industriedesign – einzeln oder als Gesamtpaket mit einer Ansprechperson.', 'kx_rubrik' => 'leistungen', 'kx_cta_url' => '/kontakt/', 'kx_ansprechperson' => $people['matteo'], 'kx_pruefen_bis' => gmdate( 'Y-m-d', strtotime( '+11 days' ) ), 'kx_im_footer' => true ),
 	),
 	'kontakt' => array(
 		'title'   => 'Kontakt',
@@ -339,7 +346,7 @@ $pages = array(
 			)
 			. $box_ref()
 			. kx_section( kx_heading( 'Alle Standorte' ) . $standorte ),
-		'meta'    => array( 'kx_claim' => 'Reden wir über Ihr Projekt', 'kx_teaser' => 'Rufen Sie an, schreiben Sie uns – oder kommen Sie in der Villa Seeblick vorbei. Kaffee gibt es immer.', 'kx_rubrik' => 'kontakt', 'kx_im_footer' => true, 'kx_kontakt_email' => 'info@konstrukta.example', 'kx_pruefen_bis' => gmdate( 'Y-m-d', strtotime( '-9 days' ) ) ),
+		'meta'    => array( 'kx_claim' => 'Reden wir über Ihr Projekt', 'kx_teaser' => 'Rufen Sie an, schreiben Sie uns – oder kommen Sie in der Villa Seeblick vorbei. Kaffee gibt es immer.', 'kx_rubrik' => 'kontakt', 'kx_im_footer' => true, 'kx_ansprechperson' => $people['lea'], 'kx_pruefen_bis' => gmdate( 'Y-m-d', strtotime( '-9 days' ) ) ),
 	),
 	'news' => array(
 		'title'   => 'News',

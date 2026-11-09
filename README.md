@@ -14,7 +14,7 @@ Local-Site: `http://wp-demo.localhost` · WordPress 7.1 · Kindthema von Twenty 
 | Meta-Felder in Revisionen (`revisions_enabled`) | Projekt → Revisionen | `includes/meta.php` |
 | **Schema-Maske, Daten als Blockattribute** – Maske bei Auswahl, Server-Vorschau sonst | Unternehmen / Startseite: Blöcke «Kennzahlen», «Standorte» (Auge-Symbol in der Werkzeugleiste = Vorschau) | `includes/blocks.php`, `blocks/kennzahlen`, `blocks/standorte` |
 | `control()` und `field()` zusammengelegt: ein `Field` für Leinwand und Seitenleiste | Seitenleiste von «Kennzahlen», «Projektkarten» | `Field` in `schema-form.js` |
-| **DataForm** (`@wordpress/dataviews`) mit Validierung | Jede Seite → Seitenleiste «Seitenkopf & Teaser (DataForm)» | `src/dataform.js` |
+| **DataForm** (`@wordpress/dataviews`) mit Validierung | Jede Seite → Seitenleiste: «Zuordnung» (Rubrik, Ansprechperson als Benutzer, Prüfen bis) oben in der Zusammenfassung, Panel «Seitenkopf & Teaser (DataForm)» weiter unten | `src/dataform.js` |
 | **DataViews + DataForm** im Admin, Schnellbearbeitung | Referenzen → Übersicht (DataViews) | `src/projekte-admin.js`, `includes/admin.php` |
 | **Gesperrte Patterns** (`templateLock: contentOnly`) | Alle Abschnitte mit «(gesperrt)» im Namen | `themes/konstrukta/patterns/*.php` |
 | **Editierbare Block-Bindings** an Post-Meta | Seitenkopf: Claim/Teaser auf der Leinwand tippen → DataForm ändert sich mit (und umgekehrt) | `patterns/seitenkopf-gebunden.php` |

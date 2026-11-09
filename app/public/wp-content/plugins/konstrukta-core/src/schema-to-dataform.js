@@ -72,6 +72,13 @@ export function toDataFormFields( schema ) {
 				return { ...base, type: 'text', elements: f.options, Edit: 'select' };
 			case 'toggle':
 				return { ...base, type: 'boolean', Edit: 'toggle' };
+			case 'user':
+				return {
+					...base,
+					type: 'integer',
+					elements: [ { value: 0, label: '— niemand —' }, ...( window.kxEditor?.users || [] ).map( ( u ) => ( { value: u.value, label: u.label } ) ) ],
+					Edit: 'select',
+				};
 			case 'email':
 				return { ...base, type: 'email' };
 			case 'url':

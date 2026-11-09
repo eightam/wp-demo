@@ -8,7 +8,8 @@
  *  - die Canvas-Maske (assets/js/schema-form.js, ohne Build)
  *  - die DataForm-Felder (src/dataform.js, src/projekte-admin.js)
  *
- * Feldtypen: text · textarea · number · select · toggle · url · email · date · media · gradient · rows
+ * Feldtypen: text · textarea · number · select · toggle · url · email · date · user · media · gradient · rows
+ * group: zuordnung → erscheint oben in der Zusammenfassung der Seitenleiste
  * rows-Spalten: text (Standard) · media · gradient
  *
  * storage:
@@ -104,15 +105,15 @@ function kx_schemas(): array {
 			'fields'    => array(
 				array( 'key' => 'claim', 'label' => 'Claim', 'help' => 'Grosse Zeile im Seitenkopf.', 'required' => true, 'maxLength' => 80 ),
 				array( 'key' => 'teaser', 'label' => 'Teaser', 'type' => 'textarea', 'help' => 'Ein Satz unter dem Claim, auch für Übersichten.', 'maxLength' => 220 ),
-				array( 'key' => 'rubrik', 'label' => 'Rubrik', 'type' => 'select', 'default' => 'unternehmen', 'options' => array(
+				array( 'key' => 'rubrik', 'label' => 'Rubrik', 'type' => 'select', 'group' => 'zuordnung', 'default' => 'unternehmen', 'options' => array(
 					array( 'value' => 'unternehmen', 'label' => 'Unternehmen' ),
 					array( 'value' => 'leistungen', 'label' => 'Leistungen' ),
 					array( 'value' => 'referenzen', 'label' => 'Referenzen' ),
 					array( 'value' => 'kontakt', 'label' => 'Kontakt' ),
 				) ),
-				array( 'key' => 'kontakt_email', 'label' => 'Ansprechperson (E-Mail)', 'type' => 'email', 'help' => 'Für Rückfragen zu dieser Seite.' ),
+				array( 'key' => 'ansprechperson', 'label' => 'Ansprechperson', 'type' => 'user', 'group' => 'zuordnung', 'help' => 'Benutzer, der für den Inhalt verantwortlich ist.' ),
 				array( 'key' => 'cta_url', 'label' => 'Link der Schaltfläche', 'type' => 'url', 'help' => 'Muss mit https:// oder / beginnen.' ),
-				array( 'key' => 'pruefen_bis', 'label' => 'Inhalt prüfen bis', 'type' => 'date', 'help' => 'Erinnerung für die Redaktion.' ),
+				array( 'key' => 'pruefen_bis', 'label' => 'Prüfen bis', 'type' => 'date', 'group' => 'zuordnung', 'help' => 'Erinnerung für die Redaktion.' ),
 				array( 'key' => 'im_footer', 'label' => 'Im Footer verlinken', 'type' => 'toggle', 'default' => false ),
 			),
 		),
@@ -192,6 +193,7 @@ function kx_field_default( array $field ) {
 			return false;
 		case 'number':
 		case 'media':
+		case 'user':
 			return 0;
 		default:
 			return '';
@@ -203,6 +205,7 @@ function kx_field_json_schema( array $field ): array {
 	switch ( $field['type'] ?? 'text' ) {
 		case 'number':
 		case 'media':
+		case 'user':
 			return array( 'type' => 'integer' );
 		case 'toggle':
 			return array( 'type' => 'boolean' );
@@ -230,6 +233,8 @@ function kx_sanitize_field( $value, array $field ) {
 		case 'number':
 		case 'media':
 			return (int) $value;
+		case 'user':
+			return get_userdata( (int) $value ) ? (int) $value : 0;
 		case 'toggle':
 			return (bool) $value;
 		case 'textarea':

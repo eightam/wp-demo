@@ -120,6 +120,12 @@
 				return el( SelectControl, Object.assign( {}, common, { label, help, value: value || field.default || '', options: field.options, onChange } ) );
 			case 'toggle':
 				return el( ToggleControl, { __nextHasNoMarginBottom: true, label, help, checked: !! value, onChange } );
+			case 'user':
+				return el( SelectControl, Object.assign( {}, common, {
+					label, help, value: String( value || 0 ),
+					options: [ { value: '0', label: '— niemand —' } ].concat( ( KX.users || [] ).map( ( u ) => ( { value: String( u.value ), label: u.label } ) ) ),
+					onChange: ( v ) => onChange( parseInt( v, 10 ) || 0 ),
+				} ) );
 			case 'media':
 				return el( BaseControl, { __nextHasNoMarginBottom: true, label, help, id: 'kx-' + field.key },
 					el( MediaCell, { value, onChange, label: field.label } ) );

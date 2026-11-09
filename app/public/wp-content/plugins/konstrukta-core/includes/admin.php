@@ -55,6 +55,12 @@ add_action( 'wp_dashboard_setup', function () {
  * Spalten in der Seitenliste und ein Widget «Inhalte zur Prüfung».
  * ------------------------------------------------------------------- */
 
+/** Name der Ansprechperson als mailto-Link. */
+function kx_user_link( int $user_id ): string {
+	$u = $user_id ? get_userdata( $user_id ) : null;
+	return $u ? '<a href="mailto:' . esc_attr( $u->user_email ) . '">' . esc_html( $u->display_name ) . '</a>' : '';
+}
+
 /** Prüfstatus: [Text, CSS-Farbe] oder null. */
 function kx_pruef_status( string $date ): ?array {
 	if ( ! $date ) {
@@ -95,7 +101,7 @@ add_action( 'manage_page_posts_custom_column', function ( $col, $post_id ) {
 			echo $s ? '<span style="color:' . esc_attr( $s[1] ) . ';font-weight:600">' . esc_html( $s[0] ) . '</span>' : '–';
 			break;
 		case 'kx_kontakt':
-			echo $d['kontakt_email'] ? '<a href="mailto:' . esc_attr( $d['kontakt_email'] ) . '">' . esc_html( $d['kontakt_email'] ) . '</a>' : '–';
+			echo kx_user_link( (int) $d['ansprechperson'] ) ?: '–';
 			break;
 		case 'kx_footer':
 			echo $d['im_footer'] ? '✓' : '–';
@@ -125,7 +131,7 @@ add_action( 'wp_dashboard_setup', function () {
 				'<tr><td><a href="%s"><strong>%s</strong></a>%s</td><td style="text-align:right;color:%s;font-weight:600">%s</td></tr>',
 				esc_url( get_edit_post_link( $p->ID ) ),
 				esc_html( get_the_title( $p ) ),
-				$d['kontakt_email'] ? '<br><a href="mailto:' . esc_attr( $d['kontakt_email'] ) . '">' . esc_html( $d['kontakt_email'] ) . '</a>' : '',
+				( $link = kx_user_link( (int) $d['ansprechperson'] ) ) ? '<br>' . $link : '',
 				esc_attr( $s[1] ),
 				esc_html( $s[0] )
 			);

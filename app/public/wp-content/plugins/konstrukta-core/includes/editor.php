@@ -38,6 +38,7 @@ function kx_editor_data(): array {
 		'gradients'   => $gradients,
 		'firma'       => kx_firma(),
 		'firmaFields' => kx_firma_fields(),
+		'users'       => kx_user_options(),
 		// Beispielprojekt für die Vorschau im Template-Editor.
 		'previewProjekt' => (int) ( get_posts( array( 'post_type' => 'kx_projekt', 'numberposts' => 1, 'fields' => 'ids', 'orderby' => 'menu_order', 'order' => 'ASC' ) )[0] ?? 0 ),
 	);
@@ -56,3 +57,11 @@ add_action( 'enqueue_block_editor_assets', function () {
 		wp_enqueue_style( 'kx-dataform', KX_URL . 'build/dataform.css', array( 'kx-dataviews' ), $asset['version'] );
 	}
 } );
+
+/** Mögliche Ansprechpersonen: alle, die Inhalte bearbeiten dürfen. */
+function kx_user_options(): array {
+	return array_map(
+		fn( $u ) => array( 'value' => (int) $u->ID, 'label' => $u->display_name, 'email' => $u->user_email ),
+		get_users( array( 'capability' => 'edit_pages', 'orderby' => 'display_name' ) )
+	);
+}
