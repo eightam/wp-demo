@@ -151,7 +151,10 @@ header .wp-block-navigation.is-vertical.is-vertical .has-child > .wp-block-navig
 		height: 100%;
 		align-items: stretch;
 	}
-	header .wp-block-navigation:not(.is-vertical) .wp-block-navigation__container { margin-block: 0 !important; }
+	/* Abstand zwischen den Punkten als Innenabstand: auch die Zwischenräume sind Hover-Fläche */
+	header .wp-block-navigation:not(.is-vertical) .wp-block-navigation__container { margin-block: 0 !important; gap: 0 !important; margin-inline-end: -16px; }
+	header .wp-block-navigation:not(.is-vertical) .wp-block-navigation__container > .wp-block-navigation-item { padding-inline: 16px; }
+	header .wp-block-navigation:not(.is-vertical) .wp-block-navigation__container > .wp-block-navigation-item:hover { background: var(--wp--preset--color--accent-5); }
 	header .wp-block-navigation:not(.is-vertical) .wp-block-navigation__container > .wp-block-navigation-item {
 		display: flex;
 		align-items: center;
