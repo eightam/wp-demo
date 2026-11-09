@@ -134,3 +134,32 @@ header .wp-block-navigation.is-vertical.is-vertical .has-child { flex-direction:
 header .wp-block-navigation.is-vertical.is-vertical .has-child > .wp-block-navigation__submenu-container { position: static !important; width: auto !important; height: auto !important; font-size: .68em; }
 .kx-footer-links { font-size: .95rem; }
 .kx-chips { margin-top: 1.5rem; }
+
+/* Hover-Fläche der Hauptmenüpunkte = volle Höhe des Header-Balkens.
+   Die Navigation dehnt sich über das Padding des Headers, jedes Element
+   füllt die Höhe; das Dropdown setzt direkt an der Balkenkante an. */
+@media (min-width: 600px) {
+	header .wp-block-navigation:not(.is-vertical) {
+		align-self: stretch;
+		margin-block: calc(-1 * var(--wp--preset--spacing--30)) !important;
+	}
+	header .wp-block-navigation:not(.is-vertical) .wp-block-navigation__responsive-container:not(.is-menu-open),
+	header .wp-block-navigation:not(.is-vertical) .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-close,
+	header .wp-block-navigation:not(.is-vertical) .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-dialog,
+	header .wp-block-navigation:not(.is-vertical) .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-container-content,
+	header .wp-block-navigation:not(.is-vertical) .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container {
+		height: 100%;
+		align-items: stretch;
+	}
+	header .wp-block-navigation:not(.is-vertical) .wp-block-navigation__container { margin-block: 0 !important; }
+	header .wp-block-navigation:not(.is-vertical) .wp-block-navigation__container > .wp-block-navigation-item {
+		display: flex;
+		align-items: center;
+		height: 100%;
+	}
+	header .wp-block-navigation:not(.is-vertical) .has-child > .wp-block-navigation__submenu-container {
+		top: 100% !important;
+		margin-top: 0 !important;
+	}
+	header .wp-block-navigation:not(.is-vertical) .has-child > .wp-block-navigation__submenu-container::before { display: none; }
+}
