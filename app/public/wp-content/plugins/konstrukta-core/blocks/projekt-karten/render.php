@@ -10,14 +10,18 @@ $args = array(
 	'meta_query'     => array(),
 	'orderby'        => array( 'menu_order' => 'ASC', 'date' => 'DESC' ),
 );
-if ( ! empty( $block->context['postId'] ) && 'kx_projekt' === get_post_type( $block->context['postId'] ) ) {
+// Auf einer Projekt-Detailseite das aktuelle Projekt auslassen (nicht im Archiv:
+// dort ist postId nur das erste Projekt der Hauptabfrage).
+if ( is_singular( 'kx_projekt' ) && ! empty( $block->context['postId'] ) ) {
 	$args['post__not_in'] = array( $block->context['postId'] );
 }
 if ( $attributes['nurHervorgehoben'] ) {
 	$args['meta_query'][] = array( 'key' => 'kx_hervorheben', 'value' => '1' );
 }
-if ( $attributes['branche'] ) {
-	$args['meta_query'][] = array( 'key' => 'kx_branche', 'value' => $attributes['branche'] );
+// Kategorie: fest gewählt oder – im Kategorie-Archiv – die aktuelle.
+$kategorie = $attributes['branche'] ?: ( is_tax( 'kx_kategorie' ) ? get_queried_object()->slug : '' );
+if ( $kategorie ) {
+	$args['tax_query'] = array( array( 'taxonomy' => 'kx_kategorie', 'field' => 'slug', 'terms' => $kategorie ) );
 }
 $q = new WP_Query( $args );
 ?>

@@ -398,5 +398,7 @@ if ( ! username_exists( 'redaktion' ) ) {
 	file_put_contents( $cred_file, "Benutzer: redaktion\nPasswort: $pw\nRolle: Redakteur\n" );
 }
 
+require __DIR__ . '/seed-struktur.php';
+
 flush_rewrite_rules();
 WP_CLI::success( 'Demo-Inhalte angelegt.' );

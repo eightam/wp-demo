@@ -25,7 +25,9 @@ function kx_schemas(): array {
 		return $schemas;
 	}
 
-	$branchen = array(
+	// Branchen = Begriffe der Taxonomie «Referenzkategorie» (Wert = Slug).
+	// Rückfall, solange noch keine Begriffe existieren.
+	$branchen = kx_kategorie_options() ?: array(
 		array( 'value' => 'bahn', 'label' => 'Bahn & Verkehr' ),
 		array( 'value' => 'energie', 'label' => 'Energie' ),
 		array( 'value' => 'industrie', 'label' => 'Industrie & Anlagenbau' ),
@@ -45,7 +47,7 @@ function kx_schemas(): array {
 			'prefix'    => 'kx_',
 			'fields'    => array(
 				array( 'key' => 'kunde', 'label' => 'Kunde', 'help' => 'Erscheint über dem Titel und auf der Karte.', 'required' => true ),
-				array( 'key' => 'branche', 'label' => 'Branche', 'type' => 'select', 'options' => $branchen, 'default' => 'industrie' ),
+				array( 'key' => 'branche', 'label' => 'Branche', 'type' => 'select', 'options' => $branchen, 'default' => 'industrie', 'help' => 'Bestimmt die Referenzkategorie (Menü «Referenzen»).' ),
 				array( 'key' => 'jahr', 'label' => 'Abschluss', 'type' => 'number', 'help' => 'Jahr der Inbetriebnahme.', 'min' => 1990, 'max' => 2040 ),
 				array( 'key' => 'standort', 'label' => 'Standort', 'help' => 'Ort, Land' ),
 				array( 'key' => 'ansicht', 'label' => 'Titelbild', 'type' => 'media', 'required' => true, 'help' => 'Hauptbild für Karte und Kopf.' ),

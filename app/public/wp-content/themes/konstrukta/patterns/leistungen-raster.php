@@ -34,7 +34,7 @@ $img = get_stylesheet_directory_uri() . '/assets/img/';
 					<p class="has-accent-4-color has-text-color">Mechanik, Elektrotechnik und Software aus einer Hand. Wir entwickeln Baugruppen, die sich fertigen lassen – und die halten.</p>
 					<!-- /wp:paragraph -->
 					<!-- wp:paragraph {"style":{"typography":{"fontWeight":"700"}}} -->
-					<p style="font-weight:700"><a href="/leistungen/">Mehr erfahren →</a></p>
+					<p style="font-weight:700"><a href="/leistungen/engineering/">Mehr erfahren →</a></p>
 					<!-- /wp:paragraph -->
 				</div>
 				<!-- /wp:group -->
@@ -58,7 +58,7 @@ $img = get_stylesheet_directory_uri() . '/assets/img/';
 					<p class="has-accent-4-color has-text-color">FEM, CFD und Mehrkörpersimulation. Wir finden die Schwachstelle, bevor das erste Bauteil gefräst ist.</p>
 					<!-- /wp:paragraph -->
 					<!-- wp:paragraph {"style":{"typography":{"fontWeight":"700"}}} -->
-					<p style="font-weight:700"><a href="/leistungen/">Mehr erfahren →</a></p>
+					<p style="font-weight:700"><a href="/leistungen/simulation/">Mehr erfahren →</a></p>
 					<!-- /wp:paragraph -->
 				</div>
 				<!-- /wp:group -->
@@ -82,7 +82,7 @@ $img = get_stylesheet_directory_uri() . '/assets/img/';
 					<p class="has-accent-4-color has-text-color">Form, Ergonomie und Bedienung. Vom Moodboard zum Prototyp in wenigen Wochen – mit fotorealistischen Visualisierungen.</p>
 					<!-- /wp:paragraph -->
 					<!-- wp:paragraph {"style":{"typography":{"fontWeight":"700"}}} -->
-					<p style="font-weight:700"><a href="/leistungen/">Mehr erfahren →</a></p>
+					<p style="font-weight:700"><a href="/leistungen/industriedesign/">Mehr erfahren →</a></p>
 					<!-- /wp:paragraph -->
 				</div>
 				<!-- /wp:group -->

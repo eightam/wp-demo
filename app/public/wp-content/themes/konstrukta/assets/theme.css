@@ -61,3 +61,75 @@ footer.wp-block-template-part { margin-block-start: 0; }
 .kx-footer-links { list-style: none; padding: 0; margin: 0; line-height: 1.9; }
 .kx-footer-links a { text-decoration: none; }
 footer .wp-block-column { min-width: 0; overflow-wrap: anywhere; }
+
+/* ------------------------------------------------------------------
+ * Hauptnavigation: Dropdown (Desktop). Core liefert Hover, Fokus,
+ * Klick-Umschalter und Escape; hier nur Gestalt und eine «Brücke»,
+ * damit das Menü beim Wechsel von Link zu Liste nicht zuklappt.
+ * ---------------------------------------------------------------- */
+header .wp-block-navigation:not(.is-vertical) .wp-block-navigation-submenu { position: relative; }
+header .wp-block-navigation:not(.is-vertical) .has-child > .wp-block-navigation__submenu-container {
+	min-width: 280px !important;
+	padding: 10px 0 !important;
+	margin-top: 14px;
+	background: var(--wp--preset--color--base) !important;
+	color: var(--wp--preset--color--contrast) !important;
+	border: 1px solid var(--wp--preset--color--accent-6) !important;
+	border-top: 3px solid var(--wp--preset--color--accent-1) !important;
+	box-shadow: 0 18px 40px rgba(20, 33, 43, .14);
+	transform: translateY(6px);
+	transition: opacity .15s ease, transform .15s ease, visibility 0s linear .15s !important;
+}
+/* Unsichtbare Brücke über den Abstand */
+header .wp-block-navigation:not(.is-vertical) .has-child > .wp-block-navigation__submenu-container::before {
+	content: ""; position: absolute; left: 0; right: 0; top: -18px; height: 18px;
+}
+header .wp-block-navigation:not(.is-vertical) .has-child:hover > .wp-block-navigation__submenu-container,
+header .wp-block-navigation:not(.is-vertical) .has-child:focus-within > .wp-block-navigation__submenu-container,
+header .wp-block-navigation:not(.is-vertical) .has-child .wp-block-navigation-submenu__toggle[aria-expanded="true"] ~ .wp-block-navigation__submenu-container {
+	transform: translateY(0);
+	transition: opacity .15s ease, transform .15s ease, visibility 0s !important;
+}
+header .wp-block-navigation:not(.is-vertical) .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
+	display: block; padding: 9px 20px !important; font-weight: 500; white-space: nowrap;
+}
+header .wp-block-navigation:not(.is-vertical) .wp-block-navigation__submenu-container .wp-block-navigation-item__content:hover,
+header .wp-block-navigation:not(.is-vertical) .wp-block-navigation__submenu-container .wp-block-navigation-item__content:focus-visible {
+	background: var(--wp--preset--color--accent-5); color: var(--wp--preset--color--accent-1);
+}
+/* Erster Eintrag «Alle …» abgesetzt */
+header .wp-block-navigation:not(.is-vertical) .wp-block-navigation__submenu-container > li:first-child { border-bottom: 1px solid var(--wp--preset--color--accent-6); margin-bottom: 6px; padding-bottom: 6px; }
+header .wp-block-navigation:not(.is-vertical) .wp-block-navigation__submenu-container > li:first-child .wp-block-navigation-item__content { font-weight: 700; }
+/* Aktive Seite / aktiver Bereich */
+header .wp-block-navigation:not(.is-vertical) .current-menu-item > .wp-block-navigation-item__content,
+header .wp-block-navigation:not(.is-vertical) .current-menu-ancestor > .wp-block-navigation-item__content { color: var(--wp--preset--color--accent-1); }
+header .wp-block-navigation:not(.is-vertical) > .wp-block-navigation__container > .current-menu-item > a,
+header .wp-block-navigation:not(.is-vertical) > .wp-block-navigation__container > .current-menu-ancestor > a { box-shadow: inset 0 -2px 0 var(--wp--preset--color--accent-1); }
+/* Pfeil dreht sich beim Öffnen */
+header .wp-block-navigation:not(.is-vertical) .wp-block-navigation__submenu-icon svg { transition: transform .15s ease; }
+header .wp-block-navigation:not(.is-vertical) .has-child:hover > .wp-block-navigation__submenu-icon svg,
+header .wp-block-navigation:not(.is-vertical) .has-child:focus-within > .wp-block-navigation__submenu-icon svg,
+header .wp-block-navigation:not(.is-vertical) .wp-block-navigation-submenu__toggle[aria-expanded="true"] .wp-block-navigation__submenu-icon svg,
+header .wp-block-navigation:not(.is-vertical) .wp-block-navigation-submenu__toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+header .wp-block-navigation:not(.is-vertical) a:focus-visible, header .wp-block-navigation:not(.is-vertical) button:focus-visible { outline: 2px solid var(--wp--preset--color--accent-1); outline-offset: 3px; }
+
+/* Mobiles Overlay: Unterpunkte eingerückt, ohne Dropdown-Kasten.
+   (Doppelte Klasse = höhere Spezifität als die Desktop-Regeln, weil das
+   Overlay im Header-Navigationsblock steckt.) */
+header .wp-block-navigation.is-vertical.is-vertical .has-child > .wp-block-navigation__submenu-container {
+	background: transparent !important; color: inherit !important; border: 0 !important; box-shadow: none !important;
+	min-width: 0 !important; margin-top: 0; transform: none;
+	padding: .5em 0 .4em 1em !important; gap: .5em; font-size: .6em;
+}
+header .wp-block-navigation.is-vertical.is-vertical .wp-block-navigation__submenu-container .wp-block-navigation-item__content { padding: 0 !important; background: transparent !important; color: inherit; }
+header .wp-block-navigation.is-vertical.is-vertical .wp-block-navigation__submenu-container > li:first-child { border: 0; margin: 0; padding: 0; }
+header .wp-block-navigation.is-vertical.is-vertical .has-child > .wp-block-navigation__submenu-container::before { display: none; }
+
+/* Kategorie-Chips (Referenzen-Archive) */
+.kx-chips { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 0 0 2rem; }
+.kx-chips li a { display: inline-block; padding: 6px 14px; border: 1px solid var(--wp--preset--color--accent-6); border-radius: 999px; text-decoration: none; font-size: .9rem; font-weight: 600; color: var(--wp--preset--color--contrast); }
+.kx-chips li a:hover, .kx-chips li.current-cat a { background: var(--wp--preset--color--contrast); color: #fff; border-color: var(--wp--preset--color--contrast); }
+header .wp-block-navigation.is-vertical.is-vertical .has-child { flex-direction: column; flex-wrap: nowrap; align-items: flex-start; height: auto; }
+header .wp-block-navigation.is-vertical.is-vertical .has-child > .wp-block-navigation__submenu-container { position: static !important; width: auto !important; height: auto !important; font-size: .68em; }
+.kx-footer-links { font-size: .95rem; }
+.kx-chips { margin-top: 1.5rem; }
