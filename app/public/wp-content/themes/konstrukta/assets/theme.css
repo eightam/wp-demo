@@ -58,3 +58,6 @@ main > .wp-block-post-content { margin-block-start: 0; }
 footer.wp-block-template-part { margin-block-start: 0; }
 .kx-stats-wrap > * { max-width: var(--wp--style--global--wide-size); margin-left: auto; margin-right: auto; }
 .kx-projects { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.kx-footer-links { list-style: none; padding: 0; margin: 0; line-height: 1.9; }
+.kx-footer-links a { text-decoration: none; }
+footer .wp-block-column { min-width: 0; overflow-wrap: anywhere; }

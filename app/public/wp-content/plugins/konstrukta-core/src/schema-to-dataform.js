@@ -3,7 +3,7 @@
  * Medien, Verläufe und Listen verwenden die Komponenten der ungebündelten
  * Maske (window.kxSchemaForm) als eigenes Edit – ein Satz Feldtypen.
  */
-import { BaseControl } from '@wordpress/components';
+import { BaseControl, TextControl } from '@wordpress/components';
 
 const SF = () => window.kxSchemaForm || {};
 
@@ -17,6 +17,22 @@ function wrap( Inner ) {
 			</BaseControl>
 		);
 	};
+}
+
+// Eigenes Datumsfeld: Das DataForm-Datum bietet nur Vergangenheits-Vorgaben
+// («Today», «Past week» …, unübersetzt) – für ein Prüfdatum in der Zukunft unpassend.
+function DateEdit( { data, field, onChange, hideLabelFromVision } ) {
+	return (
+		<TextControl
+			__nextHasNoMarginBottom
+			__next40pxDefaultSize
+			type="date"
+			label={ hideLabelFromVision ? undefined : field.label }
+			help={ field.description }
+			value={ data[ field.id ] || '' }
+			onChange={ ( v ) => onChange( { [ field.id ]: v } ) }
+		/>
+	);
 }
 
 const MediaEdit = wrap( ( { value, onChange, field } ) => {
@@ -69,7 +85,12 @@ export function toDataFormFields( schema ) {
 					},
 				};
 			case 'date':
-				return { ...base, type: 'date' };
+				return {
+					...base,
+					type: 'text',
+					Edit: DateEdit,
+					render: ( { item } ) => ( item[ f.key ] ? item[ f.key ].split( '-' ).reverse().join( '.' ) : '–' ),
+				};
 			case 'media':
 				return {
 					...base,

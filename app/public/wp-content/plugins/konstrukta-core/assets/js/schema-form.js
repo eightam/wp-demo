@@ -342,12 +342,14 @@
 		edit: function ( { attributes, setAttributes, context } ) {
 			const blockProps = useBlockProps();
 			const teil = teile.find( ( t ) => t.value === attributes.teil );
+			// Im Template-Editor gibt es kein Projekt: ein Beispielprojekt zeigen.
+			const previewId = context.postId && context.postType === 'kx_projekt' ? context.postId : KX.previewProjekt;
 			return el( Fragment, null,
 				el( InspectorControls, null, el( PanelBody, { title: 'Teil' },
 					el( Field, { field: { key: 'teil', label: 'Welcher Teil?', type: 'select', options: teile }, value: attributes.teil, onChange: ( v ) => setAttributes( { teil: v } ) } ) ) ),
 				el( 'div', blockProps,
-					context.postId && context.postType === 'kx_projekt'
-						? el( SSR, { block: 'konstrukta/projekt-ansicht', attributes, urlQueryArgs: { post_id: context.postId } } )
+					previewId
+						? el( SSR, { block: 'konstrukta/projekt-ansicht', attributes, urlQueryArgs: { post_id: previewId } } )
 						: el( Placeholder, { label: 'Projekt-Ansicht: ' + ( teil ? teil.label : attributes.teil ), instructions: 'Wird aus den Projektdaten des jeweiligen Referenzprojekts gefüllt.' } ) )
 			);
 		},
@@ -411,6 +413,81 @@
 			getFieldsList() {
 				return Object.keys( KX.firmaFields ).map( ( key ) => ( { label: KX.firmaFields[ key ], type: 'string', args: { key } } ) );
 			},
+		} );
+	}
+
+	/* ------------------------------------------------------------------
+	 * Bindings-Quelle «Seitenfelder» (nur lesend): Rubrik als Bezeichnung.
+	 * Liest live aus dem Editor – ändert man die Rubrik im DataForm,
+	 * ändert sich die Zeile im Seitenkopf sofort.
+	 * ---------------------------------------------------------------- */
+	if ( registerBlockBindingsSource ) {
+		const seite = KX.schemas.seite;
+		registerBlockBindingsSource( {
+			name: 'konstrukta/seite',
+			label: 'Seitenfelder',
+			usesContext: [ 'postId', 'postType' ],
+			getValues( { select, bindings } ) {
+				const meta = select( 'core/editor' ).getEditedPostAttribute( 'meta' ) || {};
+				const out = {};
+				Object.keys( bindings ).forEach( ( attr ) => {
+					const key = bindings[ attr ].args && bindings[ attr ].args.key;
+					const field = seite.fields.find( ( f ) => f.key === key );
+					let v = meta[ seite.prefix + key ];
+					if ( field && field.options ) {
+						const o = field.options.find( ( x ) => x.value === ( v || field.default ) );
+						v = o ? o.label : v;
+					}
+					out[ attr ] = v || '';
+				} );
+				return out;
+			},
+			canUserEditValue() {
+				return false;
+			},
+		} );
+	}
+
+	registerBlockType( 'konstrukta/footer-links', {
+		apiVersion: 3,
+		edit: function () {
+			return el( 'div', useBlockProps(), el( SSR, { block: 'konstrukta/footer-links' } ) );
+		},
+	} );
+
+	/* ------------------------------------------------------------------
+	 * Workaround: Wer aus einem Referenzprojekt heraus «Template bearbeiten»
+	 * wählt, behält im Template-Modus die Einstellungen template/templateLock
+	 * des Inhaltstyps (Core übernimmt settings.template unverändert). Folge:
+	 * Hinweis «Inhalt passt nicht zum Template», das Template ist gesperrt,
+	 * und «Template zurücksetzen» würde die Projektdaten-Maske ins
+	 * Site-Template einfügen. Deshalb im Template-Modus beides entfernen und
+	 * beim Zurückkehren wiederherstellen.
+	 * ---------------------------------------------------------------- */
+	if ( wp.data.select( 'core/editor' ) ) {
+		let lastType = null;
+		let stash = null;
+		wp.data.subscribe( () => {
+			const ed = wp.data.select( 'core/editor' );
+			const type = ed.getCurrentPostType && ed.getCurrentPostType();
+			// Die Gültigkeit wird nach dem Laden der Template-Blöcke erneut gesetzt.
+			if ( stash && type === 'wp_template' && ! wp.data.select( 'core/block-editor' ).isValidTemplate() ) {
+				wp.data.dispatch( 'core/block-editor' ).setTemplateValidity( true );
+			}
+			if ( ! type || type === lastType ) {
+				return;
+			}
+			lastType = type;
+			const settings = ed.getEditorSettings();
+			const dispatch = wp.data.dispatch( 'core/editor' );
+			if ( type === 'wp_template' && settings.template ) {
+				stash = { template: settings.template, templateLock: settings.templateLock };
+				dispatch.updateEditorSettings( { template: undefined, templateLock: false } );
+				wp.data.dispatch( 'core/block-editor' ).setTemplateValidity( true );
+			} else if ( type !== 'wp_template' && stash ) {
+				dispatch.updateEditorSettings( stash );
+				stash = null;
+			}
 		} );
 	}
 

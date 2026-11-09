@@ -321,7 +321,7 @@ $pages = array(
 			. kx_pattern( 'konstrukta/prozess' )
 			. kx_pattern( 'konstrukta/zitat' )
 			. $box_ref( array( 'Name' => array( 'content' => 'Matteo Rossi' ), 'Funktion' => array( 'content' => 'Leiter Simulation' ), 'Text' => array( 'content' => 'Fragen zu FEM, CFD oder Mehrkörpersimulation? Ich nehme mir gern eine Stunde Zeit.' ), 'Foto' => array( 'id' => $img['team-3'], 'url' => wp_get_attachment_image_url( $img['team-3'], 'thumbnail' ) ) ) ),
-		'meta'    => array( 'kx_claim' => 'Was wir für Sie tun', 'kx_teaser' => 'Engineering, Simulation und Industriedesign – einzeln oder als Gesamtpaket mit einer Ansprechperson.', 'kx_rubrik' => 'leistungen', 'kx_cta_url' => '/kontakt/' ),
+		'meta'    => array( 'kx_claim' => 'Was wir für Sie tun', 'kx_teaser' => 'Engineering, Simulation und Industriedesign – einzeln oder als Gesamtpaket mit einer Ansprechperson.', 'kx_rubrik' => 'leistungen', 'kx_cta_url' => '/kontakt/', 'kx_kontakt_email' => 'matteo.rossi@konstrukta.example', 'kx_pruefen_bis' => gmdate( 'Y-m-d', strtotime( '+11 days' ) ), 'kx_im_footer' => true ),
 	),
 	'kontakt' => array(
 		'title'   => 'Kontakt',
@@ -339,7 +339,7 @@ $pages = array(
 			)
 			. $box_ref()
 			. kx_section( kx_heading( 'Alle Standorte' ) . $standorte ),
-		'meta'    => array( 'kx_claim' => 'Reden wir über Ihr Projekt', 'kx_teaser' => 'Rufen Sie an, schreiben Sie uns – oder kommen Sie in der Villa Seeblick vorbei. Kaffee gibt es immer.', 'kx_rubrik' => 'kontakt', 'kx_im_footer' => true ),
+		'meta'    => array( 'kx_claim' => 'Reden wir über Ihr Projekt', 'kx_teaser' => 'Rufen Sie an, schreiben Sie uns – oder kommen Sie in der Villa Seeblick vorbei. Kaffee gibt es immer.', 'kx_rubrik' => 'kontakt', 'kx_im_footer' => true, 'kx_kontakt_email' => 'info@konstrukta.example', 'kx_pruefen_bis' => gmdate( 'Y-m-d', strtotime( '-9 days' ) ) ),
 	),
 	'news' => array(
 		'title'   => 'News',

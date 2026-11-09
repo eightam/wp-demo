@@ -66,6 +66,12 @@ function SeitenPanel() {
 
 	return (
 		<PluginDocumentSettingPanel name="kx-seite" title={ schema.title + ' (DataForm)' } className="kx-dataform-panel">
+			{ item.pruefen_bis && item.pruefen_bis < new Date().toISOString().slice( 0, 10 ) && (
+				<Notice status="error" isDismissible={ false }>
+					Prüfdatum überschritten – bitte Inhalt prüfen
+					{ item.kontakt_email ? ` (Ansprechperson: ${ item.kontakt_email })` : '' }.
+				</Notice>
+			) }
 			{ ! isValid && (
 				<Notice status="warning" isDismissible={ false }>
 					Bitte die markierten Felder prüfen – Speichern ist gesperrt.

@@ -1,0 +1,12 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "konstrukta/footer-links",
+	"title": "Footer-Links",
+	"category": "theme",
+	"icon": "editor-ul",
+	"description": "Listet alle Seiten, bei denen im DataForm «Im Footer verlinken» aktiv ist.",
+	"supports": { "html": false },
+	"editorScript": "kx-schema-form",
+	"render": "file:./render.php"
+}

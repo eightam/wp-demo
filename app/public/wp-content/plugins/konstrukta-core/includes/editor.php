@@ -38,6 +38,8 @@ function kx_editor_data(): array {
 		'gradients'   => $gradients,
 		'firma'       => kx_firma(),
 		'firmaFields' => kx_firma_fields(),
+		// Beispielprojekt für die Vorschau im Template-Editor.
+		'previewProjekt' => (int) ( get_posts( array( 'post_type' => 'kx_projekt', 'numberposts' => 1, 'fields' => 'ids', 'orderby' => 'menu_order', 'order' => 'ASC' ) )[0] ?? 0 ),
 	);
 }
 

@@ -20,5 +20,5 @@
 		'wp-theme',
 		'wp-warning'
 	),
-	'version' => '280bf160fac062828846'
+	'version' => '69830b1f2197c2dfc17d'
 );

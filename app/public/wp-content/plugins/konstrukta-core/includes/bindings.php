@@ -7,6 +7,7 @@
  * - konstrukta/firma: Firmendaten aus einer Option. Editierbar, Quelle in JS
  *   registriert (schema-form.js). Ändert man die Telefonnummer im Footer,
  *   ändert sie sich überall.
+ * - konstrukta/seite: Seitenfelder aufbereitet (Rubrik als Bezeichnung). Nur lesend.
  * - konstrukta/projekt: Projektdaten aufbereitet (z. B. Branche als Bezeichnung
  *   statt Schlüssel). Nur lesend.
  */
@@ -17,6 +18,20 @@ add_action( 'init', function () {
 	register_block_bindings_source( 'konstrukta/firma', array(
 		'label'              => 'Firmendaten',
 		'get_value_callback' => fn( array $args ) => kx_firma( $args['key'] ?? '' ),
+	) );
+
+	register_block_bindings_source( 'konstrukta/seite', array(
+		'label'              => 'Seitenfelder',
+		'uses_context'       => array( 'postId' ),
+		'get_value_callback' => function ( array $args, WP_Block $block ) {
+			$post_id = $block->context['postId'] ?? get_the_ID();
+			$d       = kx_data( 'seite', $post_id );
+			$key     = $args['key'] ?? '';
+			if ( 'rubrik' === $key ) {
+				return kx_option_label( 'seite', 'rubrik', $d['rubrik'] );
+			}
+			return isset( $d[ $key ] ) && is_scalar( $d[ $key ] ) ? (string) $d[ $key ] : null;
+		},
 	) );
 
 	register_block_bindings_source( 'konstrukta/projekt', array(
@@ -42,3 +57,16 @@ add_action( 'init', function () {
 		},
 	) );
 } );
+
+/**
+ * Schaltfläche, deren Link an kx_cta_url gebunden ist: ohne Link nicht ausgeben.
+ */
+add_filter( 'render_block_core/button', function ( $html, $block ) {
+	$binding = $block['attrs']['metadata']['bindings']['url'] ?? null;
+	if ( $binding && 'core/post-meta' === ( $binding['source'] ?? '' ) && ! get_post_meta( get_the_ID(), $binding['args']['key'] ?? '', true ) ) {
+		return '';
+	}
+	return $html;
+}, 10, 2 );
+
+add_filter( 'render_block_core/buttons', fn( $html ) => false === strpos( $html, '<a' ) ? '' : $html );

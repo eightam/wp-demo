@@ -49,3 +49,87 @@ add_action( 'wp_dashboard_setup', function () {
 		echo '</tbody></table>';
 	} );
 } );
+
+/* ---------------------------------------------------------------------
+ * Seitenfelder aus dem DataForm im Admin sichtbar machen:
+ * Spalten in der Seitenliste und ein Widget «Inhalte zur Prüfung».
+ * ------------------------------------------------------------------- */
+
+/** Prüfstatus: [Text, CSS-Farbe] oder null. */
+function kx_pruef_status( string $date ): ?array {
+	if ( ! $date ) {
+		return null;
+	}
+	$days = (int) floor( ( strtotime( $date ) - strtotime( 'today' ) ) / DAY_IN_SECONDS );
+	if ( $days < 0 ) {
+		return array( sprintf( 'überfällig seit %d Tagen', -$days ), '#cc1818' );
+	}
+	if ( $days <= 30 ) {
+		return array( 0 === $days ? 'heute fällig' : sprintf( 'in %d Tagen', $days ), '#b26200' );
+	}
+	return array( date_i18n( 'j. F Y', strtotime( $date ) ), '#3c434a' );
+}
+
+add_filter( 'manage_page_posts_columns', function ( $cols ) {
+	$new = array();
+	foreach ( $cols as $k => $v ) {
+		$new[ $k ] = $v;
+		if ( 'title' === $k ) {
+			$new['kx_rubrik']  = 'Rubrik';
+			$new['kx_pruefen'] = 'Prüfen bis';
+			$new['kx_kontakt'] = 'Ansprechperson';
+			$new['kx_footer']  = 'Footer';
+		}
+	}
+	return $new;
+} );
+
+add_action( 'manage_page_posts_custom_column', function ( $col, $post_id ) {
+	$d = kx_data( 'seite', $post_id );
+	switch ( $col ) {
+		case 'kx_rubrik':
+			echo esc_html( kx_option_label( 'seite', 'rubrik', $d['rubrik'] ) );
+			break;
+		case 'kx_pruefen':
+			$s = kx_pruef_status( (string) $d['pruefen_bis'] );
+			echo $s ? '<span style="color:' . esc_attr( $s[1] ) . ';font-weight:600">' . esc_html( $s[0] ) . '</span>' : '–';
+			break;
+		case 'kx_kontakt':
+			echo $d['kontakt_email'] ? '<a href="mailto:' . esc_attr( $d['kontakt_email'] ) . '">' . esc_html( $d['kontakt_email'] ) . '</a>' : '–';
+			break;
+		case 'kx_footer':
+			echo $d['im_footer'] ? '✓' : '–';
+			break;
+	}
+}, 10, 2 );
+
+add_action( 'wp_dashboard_setup', function () {
+	wp_add_dashboard_widget( 'kx_pruefen', 'Inhalte zur Prüfung', function () {
+		$pages = get_posts( array(
+			'post_type'   => 'page',
+			'numberposts' => 20,
+			'meta_key'    => 'kx_pruefen_bis',
+			'orderby'     => 'meta_value',
+			'order'       => 'ASC',
+			'meta_query'  => array( array( 'key' => 'kx_pruefen_bis', 'value' => '', 'compare' => '!=' ) ),
+		) );
+		if ( ! $pages ) {
+			echo '<p>Keine Seite hat ein Prüfdatum.</p>';
+			return;
+		}
+		echo '<p class="description">Aus dem DataForm-Feld «Inhalt prüfen bis» jeder Seite.</p><table class="widefat striped"><tbody>';
+		foreach ( $pages as $p ) {
+			$d = kx_data( 'seite', $p->ID );
+			$s = kx_pruef_status( (string) $d['pruefen_bis'] );
+			printf(
+				'<tr><td><a href="%s"><strong>%s</strong></a>%s</td><td style="text-align:right;color:%s;font-weight:600">%s</td></tr>',
+				esc_url( get_edit_post_link( $p->ID ) ),
+				esc_html( get_the_title( $p ) ),
+				$d['kontakt_email'] ? '<br><a href="mailto:' . esc_attr( $d['kontakt_email'] ) . '">' . esc_html( $d['kontakt_email'] ) . '</a>' : '',
+				esc_attr( $s[1] ),
+				esc_html( $s[0] )
+			);
+		}
+		echo '</tbody></table>';
+	} );
+} );
