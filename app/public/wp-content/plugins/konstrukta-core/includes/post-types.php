@@ -70,7 +70,7 @@ function kx_kategorie_options(): array {
 		return array();
 	}
 	$terms = get_terms( array( 'taxonomy' => 'kx_kategorie', 'hide_empty' => false, 'orderby' => 'name' ) );
-	return is_wp_error( $terms ) ? array() : array_map( fn( $t ) => array( 'value' => $t->slug, 'label' => $t->name ), $terms );
+	return is_wp_error( $terms ) ? array() : array_map( fn( $t ) => array( 'value' => $t->slug, 'label' => html_entity_decode( $t->name, ENT_QUOTES, 'UTF-8' ) ), $terms );
 }
 
 /** Meta kx_branche → Begriff zuweisen (Editor, REST, WP-CLI). */

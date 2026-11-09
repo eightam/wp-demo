@@ -9,11 +9,12 @@ defined( 'ABSPATH' ) || exit;
 add_action( 'admin_menu', function () {
 	$hook = add_submenu_page(
 		'edit.php?post_type=kx_projekt',
-		'Projekt-Übersicht (DataViews)',
-		'Übersicht (DataViews)',
+		'Referenzen',
+		'Alle Projekte',
 		'edit_posts',
 		'kx-projekte',
-		fn() => print '<div class="wrap"><h1 class="wp-heading-inline">Projekt-Übersicht</h1><p>DataViews-Liste mit DataForm-Schnellbearbeitung. Dasselbe PHP-Schema wie die Maske im Editor.</p><div id="kx-projekte-root"></div></div>'
+		fn() => print '<div class="wrap"><h1 class="wp-heading-inline">Referenzen</h1> <a href="' . esc_url( admin_url( 'post-new.php?post_type=kx_projekt' ) ) . '" class="page-title-action">Neues Projekt</a><hr class="wp-header-end"><p class="description">DataViews-Liste mit DataForm-Schnellbearbeitung · <a href="' . esc_url( admin_url( 'edit.php?post_type=kx_projekt&kx_klassisch=1' ) ) . '">Klassische Liste</a> (Papierkorb, Massenaktionen)</p><div id="kx-projekte-root"></div></div>',
+		0
 	);
 	add_action( "admin_enqueue_scripts", function ( $current ) use ( $hook ) {
 		if ( $current !== $hook || ! file_exists( KX_DIR . '/build/projekte-admin.asset.php' ) ) {
@@ -28,6 +29,22 @@ add_action( 'admin_menu', function () {
 	} );
 } );
 
+/**
+ * DataViews-Übersicht als Standardansicht für Referenzen:
+ * «Alle Projekte» (edit.php) aus dem Menü nehmen und einfache Aufrufe umleiten.
+ * Aufrufe mit Parametern (Papierkorb, Massenaktionen, Rückmeldungen) bleiben.
+ */
+add_action( 'admin_menu', function () {
+	remove_submenu_page( 'edit.php?post_type=kx_projekt', 'edit.php?post_type=kx_projekt' );
+}, 999 );
+
+add_action( 'load-edit.php', function () {
+	if ( 1 === count( $_GET ) && 'kx_projekt' === ( $_GET['post_type'] ?? '' ) ) {
+		wp_safe_redirect( admin_url( 'edit.php?post_type=kx_projekt&page=kx-projekte' ) );
+		exit;
+	}
+} );
+
 add_action( 'wp_dashboard_setup', function () {
 	wp_add_dashboard_widget( 'kx_demo', 'Demo: Pflegen im Block-Editor', function () {
 		$page = fn( $slug ) => ( $p = get_page_by_path( $slug ) ) ? get_edit_post_link( $p->ID ) : admin_url( 'edit.php?post_type=page' );
@@ -36,7 +53,7 @@ add_action( 'wp_dashboard_setup', function () {
 			array( 'Schema-Maske, Daten in Post-Meta', $proj ? get_edit_post_link( $proj[0]->ID ) : '#', 'Referenzprojekt: Maske auf der Leinwand, Template gesperrt, Pflichtfelder sperren das Speichern, Felder in Revisionen.' ),
 			array( 'Schema-Maske, Daten als Blockattribute', $page( 'unternehmen' ), 'Blöcke «Kennzahlen», «Standorte», «Team»: Maske bei Auswahl, Server-Vorschau sonst.' ),
 			array( 'DataForm (@wordpress/dataviews)', $page( 'unternehmen' ), 'Seitenleiste «Seitenkopf & Teaser» mit Validierung.' ),
-			array( 'DataViews + DataForm im Admin', admin_url( 'edit.php?post_type=kx_projekt&page=kx-projekte' ), 'Projektliste mit Schnellbearbeitung.' ),
+			array( 'DataViews + DataForm im Admin', admin_url( 'edit.php?post_type=kx_projekt&page=kx-projekte' ), 'Referenzen → Alle Projekte: Liste mit Schnellbearbeitung (Standardansicht).' ),
 			array( 'Gesperrte Patterns (contentOnly)', $page( 'leistungen' ), 'Nur Texte und Bilder sind editierbar, Struktur fix.' ),
 			array( 'Synced Pattern mit Overrides', $page( 'kontakt' ), '«Kontakt-Box»: Layout zentral, Name/Text pro Seite.' ),
 			array( 'Block-Bindings, editierbar', $page( 'unternehmen' ), 'Seitenkopf ↔ Meta kx_claim; Footer ↔ Firmendaten.' ),

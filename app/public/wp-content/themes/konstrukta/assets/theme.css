@@ -68,7 +68,7 @@ footer .wp-block-column { min-width: 0; overflow-wrap: anywhere; }
  * Klick-Umschalter und Escape; hier nur Gestalt und eine «Brücke»,
  * damit das Menü beim Wechsel von Link zu Liste nicht zuklappt.
  * ---------------------------------------------------------------- */
-header .wp-block-navigation:not(.is-vertical) .wp-block-navigation-submenu { position: relative; }
+header .wp-block-navigation:not(.is-vertical) li.has-child { position: relative; }
 header .wp-block-navigation:not(.is-vertical) .has-child > .wp-block-navigation__submenu-container {
 	min-width: 280px !important;
 	padding: 10px 0 !important;
