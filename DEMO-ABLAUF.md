@@ -3,7 +3,7 @@
 Für Kundinnen und Kunden, die von einem alten Contao kommen. Dauer rund 25 Minuten. Die Leitidee: **Man bearbeitet die Seite so, wie sie aussieht, und das System lässt nur zu, was gewollt ist.**
 
 **Vorbereitung**
-- Zwei Browserfenster: links die Website `http://wp-demo.localhost`, rechts das Backend.
+- Zwei Browserfenster: links die Website `https://wpdemo.vorschau.top`, rechts das Backend.
 - Im Backend als **`redaktion`** anmelden (Rolle Redakteur, Passwort in `bin/.demo-credentials`). So sieht die Kundschaft genau die eigenen Rechte und Sperren, nicht die Admin-Sicht.
 - Kontrast zu Contao bewusst benennen: dort Artikel, Inhaltselemente und Formulare ohne Vorschau, hier die echte Seite.
 
@@ -14,7 +14,7 @@ Für Kundinnen und Kunden, die von einem alten Contao kommen. Dauer rund 25 Minu
 > «Alles, was Sie hier sehen, pflegen Sie gleich selbst, und zwar genau so, wie es hier aussieht.»
 
 ## 2. Übersicht nach dem Login (2 Min.)
-**Backend:** [Dashboard](http://wp-demo.localhost/wp-admin/)
+**Backend:** [Dashboard](https://wpdemo.vorschau.top/wp-admin/)
 - Widget **«Inhalte zur Prüfung»**: welche Seite überfällig ist und wer zuständig ist.
 - Links das Menü: Seiten, Referenzen, Medien. Mehr braucht die Redaktion nicht.
 > «Das System erinnert Sie, wenn ein Inhalt veraltet.»
@@ -43,7 +43,7 @@ Für Kundinnen und Kunden, die von einem alten Contao kommen. Dauer rund 25 Minu
 > (Entwurf danach nicht speichern oder in den Papierkorb legen.)
 
 ## 6. Strukturierte Daten: Referenzen (5 Min.)
-**Backend:** [Referenzen → Alle Projekte](http://wp-demo.localhost/wp-admin/edit.php?post_type=kx_projekt&page=kx-projekte)
+**Backend:** [Referenzen → Alle Projekte](https://wpdemo.vorschau.top/wp-admin/edit.php?post_type=kx_projekt&page=kx-projekte)
 - Moderne Liste: Suche, Filter (z. B. Branche), Ansicht Tabelle/Raster umschalten.
 - Über eine Zeile fahren → **Schnellbearbeitung**: Daten im Fenster ändern, speichern, ohne die Liste zu verlassen.
 - Ein Projekt öffnen: Statt einer leeren Seite erscheint eine **Pflegemaske** (Kunde, Branche, Jahr, Titelbild, Kennzahlen, Galerie). Zeilen hinzufügen, verschieben, löschen.
