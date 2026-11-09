@@ -22,5 +22,4 @@ require KX_DIR . '/includes/blocks.php';      // Blöcke, Attribute aus dem Sche
 require KX_DIR . '/includes/bindings.php';    // Block-Bindings-Quellen.
 require KX_DIR . '/includes/editor.php';      // Schema + Verläufe an den Editor.
 require KX_DIR . '/includes/settings.php';    // Firmendaten (Optionen, REST).
-require KX_DIR . '/includes/acf.php';         // Vergleich: ACF-Pro-Block.
 require KX_DIR . '/includes/admin.php';       // DataViews-Seite, Dashboard-Hinweis.

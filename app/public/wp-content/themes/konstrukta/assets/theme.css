@@ -44,7 +44,8 @@ a.kx-project-card, a.kx-project-card:hover { color: #fff; }
 
 /* Team (ACF-Block) */
 .kx-team { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem; }
-.kx-team__person img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; filter: grayscale(1); }
+.kx-team__person img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+.kx-team.is-grayscale .kx-team__person img { filter: grayscale(1); }
 .kx-team__name { font-weight: 700; margin: .75rem 0 0; }
 .kx-team__role { font-size: .9rem; color: var(--wp--preset--color--accent-4); margin: .1rem 0 0; }
 .kx-team__mail { font-size: .9rem; }

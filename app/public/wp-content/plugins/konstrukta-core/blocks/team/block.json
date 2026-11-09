@@ -1,0 +1,14 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "konstrukta/team",
+	"title": "Team",
+	"category": "design",
+	"icon": "groups",
+	"description": "Personen mit Foto, Funktion und E-Mail. Pflege über die Maske auf der Leinwand, gespeichert als Blockattribute.",
+	"keywords": [ "team", "personen", "mitarbeitende" ],
+	"supports": { "html": false, "align": [ "wide" ] },
+	"editorScript": "kx-schema-form",
+	"editorStyle": "kx-schema-form",
+	"render": "file:./render.php"
+}

@@ -271,21 +271,18 @@ $standorte = kx_block( 'konstrukta/standorte', array(
 	),
 ) );
 
-// ACF-Block: ACF legt Repeater-Zellen als team_0_name … im Blockkommentar ab.
+// Team: eigene Schema-Maske, Personen als eine Liste im Blockattribut.
 $team = array(
 	array( 'Reto Schällibaum', 'CEO, Gründer', 'team-1', 'reto.schaellibaum@konstrukta.example' ),
 	array( 'Lea Gämperli', 'Business Development', 'team-2', 'lea.gaemperli@konstrukta.example' ),
 	array( 'Matteo Rossi', 'Leiter Simulation', 'team-3', 'matteo.rossi@konstrukta.example' ),
 	array( 'Sandra Keller', 'Leiterin Industriedesign', 'team-4', 'sandra.keller@konstrukta.example' ),
 );
-$acf = array( 'team' => count( $team ), '_team' => 'field_kx_team' );
-foreach ( $team as $i => $t ) {
-	foreach ( array( 'name' => $t[0], 'funktion' => $t[1], 'foto' => $img[ $t[2] ], 'email' => $t[3] ) as $k => $v ) {
-		$acf[ "team_{$i}_{$k}" ]  = $v;
-		$acf[ "_team_{$i}_{$k}" ] = "field_kx_team_$k";
-	}
-}
-$team_block = kx_block( 'konstrukta/team-acf', array( 'name' => 'konstrukta/team-acf', 'data' => $acf, 'mode' => 'preview', 'align' => 'wide' ) );
+$team_block = kx_block( 'konstrukta/team', array(
+	'align'      => 'wide',
+	'graustufen' => true,
+	'personen'   => array_map( fn( $t ) => array( 'foto' => (string) $img[ $t[2] ], 'name' => $t[0], 'funktion' => $t[1], 'email' => $t[3] ), $team ),
+) );
 
 $firma_bind = fn( $key, $tag = 'p', $style = '' ) => '<!-- wp:paragraph ' . $j( array( 'metadata' => array( 'bindings' => array( 'content' => array( 'source' => 'konstrukta/firma', 'args' => array( 'key' => $key ) ) ), 'name' => 'Firmendaten: ' . kx_firma_fields()[ $key ] ) ) ) . ' --><p>' . esc_html( kx_firma( $key ) ) . '</p><!-- /wp:paragraph -->';
 

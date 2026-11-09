@@ -5,7 +5,7 @@ set -e
 cd "$(dirname "$0")/.."
 WP=${WP:-wp}
 $WP theme activate konstrukta
-$WP plugin activate advanced-custom-fields-pro konstrukta-core
+$WP plugin activate konstrukta-core
 $WP language core install de_CH --activate || true
 $WP eval-file bin/seed.php
 $WP rewrite flush

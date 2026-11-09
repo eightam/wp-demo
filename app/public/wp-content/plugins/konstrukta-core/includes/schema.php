@@ -151,6 +151,32 @@ function kx_schemas(): array {
 		),
 
 		/* ------------------------------------------------------------------
+		 * Team: Inhaltsblock, Personen als Liste (ersetzt den früheren
+		 * ACF-Pro-Block – eine Liste ist ein Attribut, keine team_0_name-Schlüssel).
+		 * ---------------------------------------------------------------- */
+		'team' => array(
+			'title'   => 'Team',
+			'storage' => 'attributes',
+			'block'   => 'konstrukta/team',
+			'fields'  => array(
+				array( 'key' => 'graustufen', 'label' => 'Fotos in Graustufen', 'type' => 'toggle', 'placement' => 'sidebar', 'default' => true ),
+				array(
+					'key'     => 'personen',
+					'label'   => 'Personen',
+					'type'    => 'rows',
+					'empty'   => 'Noch keine Personen.',
+					'add'     => 'Person hinzufügen',
+					'columns' => array(
+						array( 'key' => 'foto', 'label' => 'Foto', 'type' => 'media', 'weight' => 2 ),
+						array( 'key' => 'name', 'label' => 'Name', 'weight' => 3, 'placeholder' => 'Vorname Nachname' ),
+						array( 'key' => 'funktion', 'label' => 'Funktion', 'weight' => 3, 'placeholder' => 'Leiterin …' ),
+						array( 'key' => 'email', 'label' => 'E-Mail', 'weight' => 3, 'placeholder' => 'name@…' ),
+					),
+				),
+			),
+		),
+
+		/* ------------------------------------------------------------------
 		 * Standorte: Inhaltsblock mit Bildern pro Zeile.
 		 * ---------------------------------------------------------------- */
 		'standorte' => array(

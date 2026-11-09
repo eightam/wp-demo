@@ -2,7 +2,7 @@
 
 Demo-Website der erfundenen **Konstrukta Engineering AG** (Inhalte inspiriert von einem Schweizer Ingenieurbüro, alles fiktiv). Sie zeigt nebeneinander, wie man Redaktionen im modernen WordPress-Backend führt: von der schemagesteuerten Pflegemaske aus [`model-block.md`](model-block.md) bis zu allen Alternativen aus [`additional.txt`](additional.txt).
 
-Local-Site: `http://wp-demo.localhost` · WordPress 7.1 · Kindthema von Twenty Twenty-Five · ACF Pro nur für den Vergleich.
+Local-Site: `http://wp-demo.localhost` · WordPress 7.1 · Kindthema von Twenty Twenty-Five · ohne ACF.
 
 ## Was wo zu sehen ist
 
@@ -12,7 +12,7 @@ Local-Site: `http://wp-demo.localhost` · WordPress 7.1 · Kindthema von Twenty 
 | Template gesperrt (`template_lock: all`) | Projekt: Maske lässt sich nicht löschen, nichts darunter einfügen | `includes/post-types.php` |
 | Pflichtfelder sperren das Speichern (`lockPostSaving`) | Projekt: «Kunde» leeren | `useRequired()` in `schema-form.js` |
 | Meta-Felder in Revisionen (`revisions_enabled`) | Projekt → Revisionen | `includes/meta.php` |
-| **Schema-Maske, Daten als Blockattribute** – Maske bei Auswahl, Server-Vorschau sonst | Unternehmen / Startseite: Blöcke «Kennzahlen», «Standorte» (Auge-Symbol in der Werkzeugleiste = Vorschau) | `includes/blocks.php`, `blocks/kennzahlen`, `blocks/standorte` |
+| **Schema-Maske, Daten als Blockattribute** – Maske bei Auswahl, Server-Vorschau sonst | Unternehmen / Startseite: Blöcke «Kennzahlen», «Standorte», «Team» (Auge-Symbol in der Werkzeugleiste = Vorschau) | `includes/blocks.php`, `blocks/kennzahlen`, `blocks/standorte` |
 | `control()` und `field()` zusammengelegt: ein `Field` für Leinwand und Seitenleiste | Seitenleiste von «Kennzahlen», «Projektkarten» | `Field` in `schema-form.js` |
 | **DataForm** (`@wordpress/dataviews`) mit Validierung | Jede Seite → Seitenleiste: «Zuordnung» (Rubrik, Ansprechperson als Benutzer, Prüfen bis) oben in der Zusammenfassung, Panel «Seitenkopf & Teaser (DataForm)» weiter unten | `src/dataform.js` |
 | **DataViews + DataForm** im Admin, Schnellbearbeitung | Referenzen → Übersicht (DataViews) | `src/projekte-admin.js`, `includes/admin.php` |
@@ -21,7 +21,7 @@ Local-Site: `http://wp-demo.localhost` · WordPress 7.1 · Kindthema von Twenty 
 | Eigene Bindings-Quelle, editierbar (Option) | Kontakt / Footer: Firmendaten (nur für Admins editierbar) | `includes/bindings.php`, `registerBlockBindingsSource` in `schema-form.js` |
 | Eigene Bindings-Quelle, lesend | Projekt-Detailseite | `konstrukta/projekt` in `includes/bindings.php` |
 | **Synced Pattern mit Overrides** | Leistungen, Kontakt: «Kontakt-Box» – Layout zentral, Name/Text/Foto pro Seite | `bin/seed.php` (wp_block) |
-| **ACF-Pro-Block** zum Vergleich | Unternehmen: «Team (ACF)» – im Code-Editor sieht man `team_0_name …` | `acf-blocks/team`, `includes/acf.php` |
+| **Team-Block** (ersetzt einen früheren ACF-Pro-Block) | Unternehmen: «Team» – Personen als eine Liste im Blockattribut | `blocks/team` |
 
 Das Dashboard-Widget «Demo: Pflegen im Block-Editor» verlinkt alle Stellen direkt.
 
@@ -58,4 +58,3 @@ Aktiviert Theme und Plugins, stellt auf de_CH, erzeugt Bilder als Anhänge, Seit
 
 - Firmendaten-Binding: Redakteure sehen die Werte, dürfen sie aber nicht ändern (Option braucht `manage_options`) – gewollt, zeigt `canUserEditValue`.
 - `@wordpress/dataviews` ist gebündelt (v22) und nutzt Core-Komponenten; bei WP-Updates neu bauen und testen.
-- Das ACF-Feld-Setup liegt im Code (`acf_add_local_field_group`), nicht in der Datenbank.

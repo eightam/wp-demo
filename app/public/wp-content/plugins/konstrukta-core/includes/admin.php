@@ -34,13 +34,13 @@ add_action( 'wp_dashboard_setup', function () {
 		$proj = get_posts( array( 'post_type' => 'kx_projekt', 'numberposts' => 1 ) );
 		$rows = array(
 			array( 'Schema-Maske, Daten in Post-Meta', $proj ? get_edit_post_link( $proj[0]->ID ) : '#', 'Referenzprojekt: Maske auf der Leinwand, Template gesperrt, Pflichtfelder sperren das Speichern, Felder in Revisionen.' ),
-			array( 'Schema-Maske, Daten als Blockattribute', $page( 'unternehmen' ), 'Blöcke «Kennzahlen» und «Standorte»: Maske bei Auswahl, Server-Vorschau sonst.' ),
+			array( 'Schema-Maske, Daten als Blockattribute', $page( 'unternehmen' ), 'Blöcke «Kennzahlen», «Standorte», «Team»: Maske bei Auswahl, Server-Vorschau sonst.' ),
 			array( 'DataForm (@wordpress/dataviews)', $page( 'unternehmen' ), 'Seitenleiste «Seitenkopf & Teaser» mit Validierung.' ),
 			array( 'DataViews + DataForm im Admin', admin_url( 'edit.php?post_type=kx_projekt&page=kx-projekte' ), 'Projektliste mit Schnellbearbeitung.' ),
 			array( 'Gesperrte Patterns (contentOnly)', $page( 'leistungen' ), 'Nur Texte und Bilder sind editierbar, Struktur fix.' ),
 			array( 'Synced Pattern mit Overrides', $page( 'kontakt' ), '«Kontakt-Box»: Layout zentral, Name/Text pro Seite.' ),
 			array( 'Block-Bindings, editierbar', $page( 'unternehmen' ), 'Seitenkopf ↔ Meta kx_claim; Footer ↔ Firmendaten.' ),
-			array( 'ACF Pro-Block (Vergleich)', $page( 'unternehmen' ), 'Block «Team (ACF)» mit Repeater.' ),
+			array( 'Team-Block (eigene Maske statt ACF)', $page( 'unternehmen' ), 'Block «Team»: Personen mit Foto, gespeichert als eine Liste im Block.' ),
 		);
 		echo '<table class="widefat striped"><tbody>';
 		foreach ( $rows as $r ) {
